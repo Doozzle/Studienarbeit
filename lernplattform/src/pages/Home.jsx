@@ -18,8 +18,10 @@ class Home extends React.Component {
     }
 
     onStartButtonClick() {
-        window.sessionStorage.setItem("username", this.state.uname)
+        window.sessionStorage.setItem("username", this.state.uname);
+        window.sessionStorage.setItem("points", 0)
     }
+
     render() {
         return (
             <div id='homepage_container'>

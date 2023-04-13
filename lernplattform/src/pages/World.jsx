@@ -1,9 +1,16 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 class World extends React.Component {
-
+    world: string
+    level: string
     constructor() {
         super();
+
+        this.setState({
+            level: "level0",
+            world: "world0"
+        })
     }
 
     getUsername() {
@@ -11,12 +18,15 @@ class World extends React.Component {
     }
 
     getPoints() {
-        let points = sessionStorage.getItem("points");
-        if (points === undefined) {
-            points = 0
-        }
-        return points;
+        return sessionStorage.getItem("points");
     }
+
+    setLevel(world, level) {
+        sessionStorage.setItem("world", world);
+        sessionStorage.setItem("level", level)
+    }
+
+
 
     render() {
         return (
@@ -35,10 +45,21 @@ class World extends React.Component {
                 <h3>Welt 1 - Algorithmen, Komplexität und Datenstrukturen</h3>
                 <div id="world1_popup">
                     <h3>Bitte wähle das Level aus!</h3>
-                    <button>Level 1</button>
-                    <button>Level 2</button>
-                    <button>Level 3</button>
+                    <Link to="/Level"><button className="level-button" onClick={() => this.setLevel("world1", "level1")}>Level 1</button></Link>
+                    <Link to="/Level"><button className="level-button" onClick={() => this.setLevel("world1", "level2")}>Level 2</button></Link>
+                    <Link to="/Level"><button className="level-button" onClick={() => this.setLevel("world1", "level3")}>Level 3</button></Link>
+
                 </div>
+
+                <h3>Welt 2 - Betriebssysteme</h3>
+                <div id="world2_popup">
+                    <h3>Bitte wähle das Level aus!</h3>
+                    <Link to="/Level_betriebssysteme"><button className="level-button" onClick={() => this.setLevel("world2", "level1")}>Level 1</button></Link>
+                    <Link to="/Level_betriebssysteme"><button className="level-button" onClick={() => this.setLevel("world2", "level2")}>Level 2</button></Link>
+                    <Link to="/Level_betriebssysteme"><button className="level-button" onClick={() => this.setLevel("world2", "level3")}>Level 3</button></Link>
+                </div>
+
+
             </div>
 
         )
