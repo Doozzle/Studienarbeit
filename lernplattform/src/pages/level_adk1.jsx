@@ -131,20 +131,17 @@ class Level_adk1 extends React.Component {
 
     calculateResult() {
         window.sessionStorage.setItem("won", false)
-        const distances_before=[{distance:this.state.costA, previous: this.state.predecessorA},
-                                {distance:this.state.costB, previous: this.state.predecessorB},
-                                {distance:this.state.costC, previous: this.state.predecessorC},
-                                {distance:this.state.costD, previous: this.state.predecessorD},]
 
-        const distance_after = dijkstra_algorithm(3,0)
-
-        if (distance_after == distances_before) {
+        if(this.state.node == "knotenD" &&
+        this.state.predecessorA == "none" &&
+        this.state.costA == "" &&
+        this.state.predecessorB == "none" &&
+        this.state.costB == "" &&
+        this.state.predecessorC == "knotenD" &&
+        this.state.costC == "19" &&
+        this.state.predecessorD == "knotenB" &&
+        this.state.costD == "7"){
             window.sessionStorage.setItem("won", true)
-            let current_points = Number(sessionStorage.getItem("points"));
-            let new_points = current_points + 500;
-            window.sessionStorage.setItem("points", new_points)
-        }else{
-            window.sessionStorage.setItem("won", false)
         }
     }
     render() {
@@ -175,6 +172,10 @@ class Level_adk1 extends React.Component {
                         At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
                         takimata sanctus est Lorem ipsum dolor sit amet.
                     </p>
+                </div>
+
+                <div id="graph">
+                    <img src={require('../img/graph_adk1.jpg')}></img>
                 </div>
 
                 <div id="shortest-path-table">
@@ -241,15 +242,7 @@ class Level_adk1 extends React.Component {
                                 <td>
                                     <table>
                                         <tr>
-                                            <td>15</td>
-                                            <td>A</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td>2</td>
+                                            <td>5</td>
                                             <td>A</td>
                                         </tr>
                                     </table>
@@ -259,6 +252,14 @@ class Level_adk1 extends React.Component {
                                         <tr>
                                             <td>&infin;</td>
                                             <td>&#8210;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>A</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -272,16 +273,8 @@ class Level_adk1 extends React.Component {
                                 <td>
                                     <table>
                                         <tr>
-                                            <td>6</td>
-                                            <td>C</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <table>
-                                        <tr>
                                             <b>
-                                            <td>2</td>
+                                            <td>5</td>
                                             <td>A</td>
                                             </b>
                                         </tr>
@@ -292,6 +285,14 @@ class Level_adk1 extends React.Component {
                                         <tr>
                                             <td>&infin;</td>
                                             <td>&#8210;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>B</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -337,7 +338,7 @@ class Level_adk1 extends React.Component {
                     <label>Kosten</label>
                     <input type="number" id="costB" value={this.state.costB} onChange={event => this.handleInputChange(event) }/>
                     <label>Vorgänger</label>
-                    <select id="predecessorB" >
+                    <select id="predecessorB" onChange={event => this.handleInputChange(event)}>
                         <option value="knotenA">Knoten A</option>
                         <option value="knotenB">Knoten B</option>
                         <option value="knotenC">Knoten C</option>
@@ -352,7 +353,7 @@ class Level_adk1 extends React.Component {
                     <label>Kosten</label>
                     <input type="number" id="costC" value={this.state.costC} onChange={event => this.handleInputChange(event) }/>
                     <label>Vorgänger</label>
-                    <select id="predecessorC" value="">
+                    <select id="predecessorC" onChange={event => this.handleInputChange(event)}>
                         <option value="knotenA">Knoten A</option>
                         <option value="knotenB">Knoten B</option>
                         <option value="knotenC">Knoten C</option>
@@ -367,7 +368,7 @@ class Level_adk1 extends React.Component {
                     <label>Kosten</label>
                     <input type="number" id="costD" value={this.state.costD} onChange={event => this.handleInputChange(event)} />
                     <label>Vorgänger</label>
-                    <select id="predecessorD" value="">
+                    <select id="predecessorD" onChange={event => this.handleInputChange(event)}>
                         <option value="knotenA">Knoten A</option>
                         <option value="knotenB">Knoten B</option>
                         <option value="knotenC">Knoten C</option>

@@ -26,7 +26,7 @@ class Home extends React.Component {
         return (
             <div id='homepage_container'>
                 <div id='homepage_left'>
-                    <h1>Herzlich Willkommen zu "<i>Hier fancy Namen einfügen</i>"</h1>
+                    <h1>Herzlich Willkommen</h1>
                     <p>
                         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
                         ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
@@ -65,7 +65,7 @@ class Home extends React.Component {
                 </div>
 
                 <div id='homepage_right'>
-                    <img src="./img/mainpage.jpg"/>
+                    <img src="../img/mainpage.jpg"/>
 
                     <div id="user_input">
                         <h3 id="username_headline">Sag mir wie du heißt!</h3>
