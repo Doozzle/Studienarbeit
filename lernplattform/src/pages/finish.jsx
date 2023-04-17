@@ -23,14 +23,28 @@ function Result() {
 }
 class Finish extends React.Component{
     render() {
-        return(
-            <div>
-                <Result/>
-                <Link to="/world">
-                    <button>Zurück zur Levelauswahl</button>
-                </Link>
-            </div>
-        )
+        const result = sessionStorage.getItem("won")
+        if(result=="true") {
+            return(
+                <div>
+                    <p>Herzlichen Glückwunsch, Sie haben gewonnen!</p>
+                    <p>Sie erhalten 500 Punkte</p>
+                    <Link to="/world">
+                        <button>Zurück zur Levelauswahl</button>
+                    </Link>
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <p>Das war leider nicht richtig, versuchen Sie es doch nocheinmal</p>
+                    <Link to="/world">
+                        <button>Zurück zur Levelauswahl</button>
+                    </Link>
+                </div>
+            )
+
+        }
     }
 }
 

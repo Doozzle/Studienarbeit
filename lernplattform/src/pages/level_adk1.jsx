@@ -1,0 +1,389 @@
+import React from 'react';
+import {Link} from "react-router-dom";
+
+const graph = [
+    [0,0,6,0,7,0,0],
+    [0,0,0,4,8,0,9],
+    [6,0,0,0,2,2,0],
+    [0,4,0,0,10,1,5],
+    [7,8,2,10,0,3,0],
+    [0,0,2,1,3,0,0],
+    [0,9,0,5,0,0,0]
+]
+function dijkstra_algorithm (iterations, starting_point) {
+    /*graph: 2-dimensional array
+    iterations: integer
+    starting_point: integer
+     */
+
+    /*Initialise*/
+    let distances = []
+
+    for (let i in graph) {
+        distances.push({
+            distance: Number.POSITIVE_INFINITY,
+            previous: ''
+        })
+    }
+
+    /*Initialise Starting Point */
+    distances[starting_point] = {
+        distance: 0,
+        previous: ''
+    }
+
+    /*Algorithm*/
+    let visited = [];
+    let watched = starting_point;
+    let iterator = 0;
+
+    while (iterator<= iterations) {
+        /*Update of the shortest distances*/
+        for (let x in graph[watched]) {
+            if (x > 0 && !(visited.includes(x)) && distances[watched]["distance"] + x < distances[x]["distance"]){
+                distances[x] = {
+                    distance: graph[watched][x] + distances[watched]["distance"],
+                    previous: watched
+                }
+            }
+        }
+
+        visited.push(watched)
+
+        /*Check if we are already done*/
+        if (visited.length == graph.length) {
+            return distances
+        };
+
+        /*Determine next node*/
+        let shortest = Number.POSITIVE_INFINITY;
+
+        for (let i in distances) {
+            if (i["distance"] < shortest && !(visited.includes(i))) {
+                shortest = i["distance"]
+                watched = i
+            }
+        }
+
+        iterator++
+    }
+
+    return distances
+
+}
+class Level_adk1 extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            node: '',
+            predecessorA: '',
+            predecessorB: '',
+            predecessorC: '',
+            predecessorD: '',
+            costA: '',
+            costB: '',
+            costC: '',
+            costD: '',
+        };
+    }
+    getUsername() {
+        return sessionStorage.getItem("username");
+    }
+
+    getPoints() {
+        return sessionStorage.getItem("points");
+    }
+
+    handleNodeChange(e) {
+        this.setState({node: e.target.value});
+        console.log("Node selected")
+    }
+
+    handleInputChange(e) {
+        switch(e.target.id){
+            case "predecessorA":
+                this.setState({predecessorA: e.target.value})
+                break;
+            case "predecessorB":
+                this.setState({predecessorB: e.target.value})
+                break;
+            case "predecessorC":
+                this.setState({predecessorC: e.target.value})
+                break;
+            case "predecessorD":
+                this.setState({predecessorD: e.target.value})
+                break;
+            case "costA":
+                this.setState({costA: e.target.value})
+                break;
+            case "costB":
+                this.setState({costB: e.target.value})
+                break;
+            case "costC":
+                this.setState({costC: e.target.value})
+                break;
+            case "costD":
+                this.setState({costD: e.target.value})
+                break;
+        }
+    }
+
+    calculateResult() {
+        window.sessionStorage.setItem("won", false)
+        const distances_before=[{distance:this.state.costA, previous: this.state.predecessorA},
+                                {distance:this.state.costB, previous: this.state.predecessorB},
+                                {distance:this.state.costC, previous: this.state.predecessorC},
+                                {distance:this.state.costD, previous: this.state.predecessorD},]
+
+        const distance_after = dijkstra_algorithm(3,0)
+
+        if (distance_after == distances_before) {
+            window.sessionStorage.setItem("won", true)
+            let current_points = Number(sessionStorage.getItem("points"));
+            let new_points = current_points + 500;
+            window.sessionStorage.setItem("points", new_points)
+        }else{
+            window.sessionStorage.setItem("won", false)
+        }
+    }
+    render() {
+        return (
+            <div id="level">
+                <div id="player_information">
+                    <h4>Username: {this.getUsername()}<br/>Punkte: {this.getPoints()}</h4>
+                </div>
+
+                <div id="ranking">
+                    Player x 25pts<br/>
+                    Player y 16pts<br/>
+                    Player z 13pts<br/>
+                    Du {this.getPoints()}pts
+                </div>
+
+                <div id="explanation">
+                    <h3>Erklärung vom Spiel</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
+                        ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                        dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
+                        sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                        tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+                        accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
+                        est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                        diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                        At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+                        takimata sanctus est Lorem ipsum dolor sit amet.
+                    </p>
+                </div>
+
+                <div id="shortest-path-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Betrachteter Knoten</th>
+                                <th>Kosten für A</th>
+                                <th>Kosten für B</th>
+                                <th>Kosten für C</th>
+                                <th>Kosten für D</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Initial</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>&infin;</td>
+                                            <td>&#8210;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>&infin;</td>
+                                            <td>&#8210;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>&infin;</td>
+                                            <td>&#8210;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>&infin;</td>
+                                            <td>&#8210;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>1. Schritt</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <b>
+                                            <td>0</td>
+                                            <td>&#8210;</td>
+                                            </b>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>15</td>
+                                            <td>A</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>A</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>&infin;</td>
+                                            <td>&#8210;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2. Schritt</td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>C</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <b>
+                                            <td>2</td>
+                                            <td>A</td>
+                                            </b>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>&infin;</td>
+                                            <td>&#8210;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>3. Schritt</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div>
+                    <label>Betrachteter Knoten:</label>
+                    <select id="watched-node" onChange={event => this.handleNodeChange(event)}>
+                        <option value="knotenA">Knoten A</option>
+                        <option value="knotenB">Knoten B</option>
+                        <option value="knotenC">Knoten C</option>
+                        <option value="knotenD">Knoten D</option>
+                    </select>
+
+                    <br/>
+                    <br/>
+                    <label>Knoten A</label>
+                    <label>Kosten</label>
+                    <input type="number" id="costA" value={this.state.costA} onChange={event => this.handleInputChange(event)}/>
+                    <label>Vorgänger</label>
+                    <select id="predecessorA" onChange={event => this.handleInputChange(event)}>
+                        <option value="knotenA">Knoten A</option>
+                        <option value="knotenB">Knoten B</option>
+                        <option value="knotenC">Knoten C</option>
+                        <option value="knotenD">Knoten D</option>
+                        <option value="none">Keine Veränderung</option>
+                    </select>
+
+
+                    <br/>
+                    <br/>
+                    <label>Knoten B</label>
+                    <label>Kosten</label>
+                    <input type="number" id="costB" value={this.state.costB} onChange={event => this.handleInputChange(event) }/>
+                    <label>Vorgänger</label>
+                    <select id="predecessorB" >
+                        <option value="knotenA">Knoten A</option>
+                        <option value="knotenB">Knoten B</option>
+                        <option value="knotenC">Knoten C</option>
+                        <option value="knotenD">Knoten D</option>
+                        <option value="none">Keine Veränderung</option>
+                    </select>
+
+
+                    <br/>
+                    <br/>
+                    <label>Knoten C</label>
+                    <label>Kosten</label>
+                    <input type="number" id="costC" value={this.state.costC} onChange={event => this.handleInputChange(event) }/>
+                    <label>Vorgänger</label>
+                    <select id="predecessorC" value="">
+                        <option value="knotenA">Knoten A</option>
+                        <option value="knotenB">Knoten B</option>
+                        <option value="knotenC">Knoten C</option>
+                        <option value="knotenD">Knoten D</option>
+                        <option value="none">Keine Veränderung</option>
+                    </select>
+
+
+                    <br/>
+                    <br/>
+                    <label>Knoten D</label>
+                    <label>Kosten</label>
+                    <input type="number" id="costD" value={this.state.costD} onChange={event => this.handleInputChange(event)} />
+                    <label>Vorgänger</label>
+                    <select id="predecessorD" value="">
+                        <option value="knotenA">Knoten A</option>
+                        <option value="knotenB">Knoten B</option>
+                        <option value="knotenC">Knoten C</option>
+                        <option value="knotenD">Knoten D</option>
+                        <option value="none">Keine Veränderung</option>
+                    </select>
+
+                    <br/>
+                    <br/>
+                    <Link to="/finish">
+                    <button onClick={event => this.calculateResult(event)}>Bestätigen</button>
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default Level_adk1;

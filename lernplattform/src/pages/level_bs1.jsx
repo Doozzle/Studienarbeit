@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-class Level_betriebssysteme extends React.Component {
+class Level_bs1 extends React.Component {
 
     constructor(props) {
         super(props);
@@ -24,6 +24,7 @@ class Level_betriebssysteme extends React.Component {
     }
 
     calculateResult(){
+        window.sessionStorage.setItem("won", false)
         const process_list = [["prozessA", 14, 8], ["prozessB", 7, 3], ["prozessC", 9, 7], ["prozessD", 5, 5]]
         let next_process = ["", 10000, 10000]
         for (let i = 0; i<process_list.length; i++) {
@@ -132,4 +133,4 @@ class Level_betriebssysteme extends React.Component {
     }
 }
 
-export default Level_betriebssysteme
+export default Level_bs1

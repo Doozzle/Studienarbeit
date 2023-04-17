@@ -65,7 +65,7 @@ class Home extends React.Component {
                 </div>
 
                 <div id='homepage_right'>
-                    <img src="../img/mainpage.jpg"/>
+                    <img src="./img/mainpage.jpg"/>
 
                     <div id="user_input">
                         <h3 id="username_headline">Sag mir wie du heißt!</h3>

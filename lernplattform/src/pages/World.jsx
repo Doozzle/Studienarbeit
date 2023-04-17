@@ -45,18 +45,18 @@ class World extends React.Component {
                 <h3>Welt 1 - Algorithmen, Komplexität und Datenstrukturen</h3>
                 <div id="world1_popup">
                     <h3>Bitte wähle das Level aus!</h3>
-                    <Link to="/Level"><button className="level-button" onClick={() => this.setLevel("world1", "level1")}>Level 1</button></Link>
-                    <Link to="/Level"><button className="level-button" onClick={() => this.setLevel("world1", "level2")}>Level 2</button></Link>
-                    <Link to="/Level"><button className="level-button" onClick={() => this.setLevel("world1", "level3")}>Level 3</button></Link>
+                    <Link to="/level_adk1"><button className="level-button" onClick={() => this.setLevel("world1", "level1")}>Level 1</button></Link>
+                    <Link to="/level_adk2"><button className="level-button" onClick={() => this.setLevel("world1", "level2")}>Level 2</button></Link>
+                    <Link to="/level_adk3"><button className="level-button" onClick={() => this.setLevel("world1", "level3")}>Level 3</button></Link>
 
                 </div>
 
                 <h3>Welt 2 - Betriebssysteme</h3>
                 <div id="world2_popup">
                     <h3>Bitte wähle das Level aus!</h3>
-                    <Link to="/Level_betriebssysteme"><button className="level-button" onClick={() => this.setLevel("world2", "level1")}>Level 1</button></Link>
-                    <Link to="/Level_betriebssysteme"><button className="level-button" onClick={() => this.setLevel("world2", "level2")}>Level 2</button></Link>
-                    <Link to="/Level_betriebssysteme"><button className="level-button" onClick={() => this.setLevel("world2", "level3")}>Level 3</button></Link>
+                    <Link to="/Level_bs1"><button className="level-button" onClick={() => this.setLevel("world2", "level1")}>Level 1</button></Link>
+                    <Link to="/Level_bs2"><button className="level-button" onClick={() => this.setLevel("world2", "level2")}>Level 2</button></Link>
+                    <Link to="/Level_bs3"><button className="level-button" onClick={() => this.setLevel("world2", "level3")}>Level 3</button></Link>
                 </div>
 
 
