@@ -172,6 +172,9 @@ class Level_adk3 extends React.Component {
         this.state.predecessorG == "none" &&
         this.state.costG == ""){
             window.sessionStorage.setItem("won", true)
+            let current_points = Number(sessionStorage.getItem("points"));
+            let new_points = current_points + 500;
+            window.sessionStorage.setItem("points", new_points)
         }
     }
     render() {

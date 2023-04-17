@@ -160,6 +160,9 @@ class Level_adk2 extends React.Component {
         this.state.costE == "6" &&
         this.state.predecessorF == "knotenB" &&
         this.state.costF == "10"){
+            let current_points = Number(sessionStorage.getItem("points"));
+            let new_points = current_points + 500;
+            window.sessionStorage.setItem("points", new_points)
             window.sessionStorage.setItem("won", true)
         }
     }
